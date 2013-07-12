@@ -37,23 +37,35 @@ var assertFileExists = function(infile) {
     return instr;
 };
 
-var cheerioHtmlFile = function(htmlfile) {
-    return cheerio.load(fs.readFileSync(htmlfile));
+var cheerioHtmlFile = function(htmlfile, isUrl, cb) {
+    if (isUrl) {
+	rest.get(program.url).on('complete', function(result) {
+	    if (result instanceof Error) {
+		console.error('Error: ' + result.message);
+		process.exit(1);
+	    } else {
+		return cb(cheerio.load(result));
+	    }
+	});
+    } else {
+	return cb(cheerio.load(fs.readFileSync(htmlfile)));
+    }
 };
 
 var loadChecks = function(checksfile) {
     return JSON.parse(fs.readFileSync(checksfile));
 };
 
-var checkHtmlFile = function(htmlfile, checksfile) {
-    $ = cheerioHtmlFile(htmlfile);
-    var checks = loadChecks(checksfile).sort();
-    var out = {};
-    for(var ii in checks) {
-        var present = $(checks[ii]).length > 0;
-        out[checks[ii]] = present;
-    }
-    return out;
+var checkHtmlFile = function(htmlfile, isUrl, checksfile, cb) {
+    cheerioHtmlFile(htmlfile, isUrl, function($) {
+	var checks = loadChecks(checksfile).sort();
+	var out = {};
+	for(var ii in checks) {
+            var present = $(checks[ii]).length > 0;
+            out[checks[ii]] = present;
+	}
+	return cb(out);
+    });
 };
 
 var clone = function(fn) {
@@ -62,10 +74,11 @@ var clone = function(fn) {
     return fn.bind({});
 };
 
-var doTheChecks = function(file, checks) {
-    var checkJson = checkHtmlFile(file, checks);
-    var outJson = JSON.stringify(checkJson, null, 4);
-    console.log(outJson);
+var doTheChecks = function(file, isUrl, checks) {
+    checkHtmlFile(file, isUrl, checks, function(checkJson){
+	var outJson = JSON.stringify(checkJson, null, 4);
+	console.log(outJson);
+    });
 }
 
 if(require.main == module) {
@@ -77,18 +90,9 @@ if(require.main == module) {
 
     // If there is a url, check that. Otherwise, read file or the default file.
     if (program.url) {
-	rest.get(program.url).on('complete', function(result) {
-	    if (result instanceof Error) {
-		console.error('Error: ' + result.message);
-	    } else {
-		// Write contents of url to file
-		file = 'downloaded.html';
-		fs.writeFileSync(file, result);
-		doTheChecks(file, program.checks);
-	    }
-	});
+	doTheChecks(program.url, true, program.checks);
     } else {
-	doTheChecks(program.file, program.checks);
+	doTheChecks(program.file, false, program.checks);
     }
 } else {
     exports.checkHtmlFile = checkHtmlFile;
