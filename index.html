@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <title>My First Bitstarter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link type="text/css" rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css"> --->
+    <!-- JQuery -->
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fsocial-buttons.css">
-    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
-    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,300italic,400italic,500italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet" type="text/css">
@@ -78,7 +81,7 @@
       }
       .actions {
         background-color: #343434;
-        padding: 3% 0%;
+        padding: 2% 0%;
       }
       .video, .thermometer, .order, .social, .statistics {
         text-align: center;
@@ -94,7 +97,7 @@
         text-align: left;
       }
       .asset {
-        padding: 2.5% 0%;
+        /* padding: 2.5% 0%; */
       }
       .footer {
         color: #cccccc;
@@ -140,24 +143,24 @@
   <body>
 
     <!-- Mobile-friendly navbar adapted from example. -->
-    <!-- http://twitter.github.io/bootstrap/examples/starter-template.html -->
+    <!-- http://getbootstrap/examples/starter-template.html -->
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-default navbar-btn" data-toggle="collapse" data-target=".navbar-collapse">
+      <div class="container">
+	<div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Kankan</a>
-          <div class="navbar-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.navbar-collapse -->
-        </div>
+	</div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
       </div>
     </div>
 
@@ -176,7 +179,7 @@
       </div>
       <div class="row pitch">  <!-- Start of pitch: video + actions -->
 	<div class="col-md-5 col-md-offset-1 video">
-	  <img class="img-polaroid" alt="Placeholder" src="http://placehold.it/480x300">
+	  <img class="img-thumbnail" alt="Placeholder" src="http://placehold.it/480x300">
 	</div>
 	<!-- We define 'actions' to contain statistics, order and share buttons -->
 	<div class="col-md-5 actions">
@@ -203,8 +206,8 @@
 	    <div class="row">
 	      <div class="col-md-10 col-md-offset-1">
 		<div class="thermometer progress active">  <!-- Bootstrap progress bar -->
-	          <div class="bar bar-success" style="width: 60%;"></div>
-		  <div class="bar bar-warning" style="width: 40%;"></div>
+	          <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+		  <div class="progress-bar progress-bar-warning" style="width: 40%;"></div>
 		</div>
 	      </div>
 	    </div>   <!-- End row thermometer -->
@@ -236,7 +239,7 @@
       <!-- Marketing copy -->
       <div class="row section1">
 	<div class="col-md-5 col-md-offset-1 asset">
-	  <img alt="Placeholder" src="http://i.imgur.com/Oz6zb0G.png">	  
+	  <img class="img-responsive" alt="Placeholder" src="http://i.imgur.com/Oz6zb0G.png">	  
 	</div>
 	<div class="col-md-5 copy">
 	  <h3>What is Kanban?</h3>
@@ -248,7 +251,7 @@
       </div>
       <hr>
 	<div class="col-md-5 col-md-offset-1 copy copy-right">
-	  <h3>Kankan: Kanban in an app</h3>
+	  <h3>Kankan = Kanban in an app</h3>
 	  <p>
 	    There are so many things to do when you work on a project that it is easy to lose track. Tasks get forgotten or relegated, leading to delays and wasted time. </p>
 	  <p>Kankan can help you manage all your tasks so that your team can run like a well-oiled machine where everybody knows what they should be working on.
